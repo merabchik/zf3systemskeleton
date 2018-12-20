@@ -1,0 +1,48 @@
+<div class="header_right">
+    <div id="top_notification">
+        <ul>
+            <li class="inbox dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    <span class="icon"></span>
+                    <span class="alert_notify blue"><?= count($this->messages); ?></span>
+                </a>
+                <div class="notification_list dropdown-menu blue_d">
+                    <div class="white_lin nlist_block">
+                        <ul>
+                            <?php foreach ($this->messages as $message): ?>
+                                <li>
+                                    <div class="nlist_thumb">
+                                        <img src="<?php if (isset($message["sender"]["avatar"]))
+                                    echo $message["sender"]["avatar"];
+                            else echo URL . 'skin/images/photo_60x60.jpg';
+                            ?>" width="40" height="40" alt="avatar" />
+                                    </div>
+                                    <div class="list_inf">
+                                        <a href="#messageId=<?= $message["id"]; ?>"><?= $message["message"]; ?></a>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <span class="btn_24_blue"><a href="<?= URL; ?>public/messanger/#messagebox" id="viewAllMessagesButton">View All</a></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="user_nav">
+        <ul>
+            <li class="user_thumb"><a href="#"><span class="icon"><img src="<?= $this->basePath(); ?>/uploads/companylogo/company_logo" width="30" height="30" alt="User"></span></a></li>
+            <li class="user_info">
+                <span class="user_name">fullname</span>
+                <span>
+                    <a href="<?= $this->basePath(); ?>/useraccount/userprofile/">profile</a> &#124; 
+                    <a href="#">settings</a> &#124; 
+                    <a href="#">help</a>
+                </span>
+            </li>
+            <li class="logout">
+                <a href="<?= $this->basePath(); ?>/useraccount/logout"><span class="icon"></span>Logout</a>
+            </li>
+        </ul>
+    </div>
+</div>

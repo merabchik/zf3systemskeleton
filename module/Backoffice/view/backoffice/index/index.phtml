@@ -1,0 +1,22 @@
+<table>
+	<tr>
+		<td>ID</td>
+		<td>Lang Code</td>
+		<td>Icon</td>
+		<td>Is Default</td>
+		<td>Status</td>
+		<td>Position</td>
+	</tr>
+<?php
+foreach ($langs as $item) {
+    echo '<tr>';
+    echo '<td>' . $item->getID() . '</td>';
+    echo '<td>' . $item->getLangCode() . '</td>';
+    echo '<td>' . $item->getIcon() . '</td>';
+    echo '<td>' . $item->getDefault() . '</td>';
+    echo '<td>' . $item->getStatus() . '</td>';
+    echo '<td>' . $item->getPos() . '</td>';
+    echo '</tr>';
+}
+?>
+</table>

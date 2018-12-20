@@ -1,0 +1,11 @@
+<ul class="collection" style="margin: 0px;">
+    <li>
+        <?= $this->render('application/blocks/rating_block.phtml'); ?>
+    </li>
+    <li class="collection-item">ID# <?= $this->tvirti['id']; ?></li>
+    <li class="collection-item"><?= $this->tvirti['user']["fullname"] . '  /  ' . $this->tvirti['add_date']; ?></li>
+    <li class="collection-item"><?= $this->words['tvirtis_tipi'] . ' - ' . $this->tvirti['inner']; ?></li>
+    <li class="collection-item"><?= $this->words['load_date'] . ' - ' . $this->tvirti['load_date']; ?></li>
+    <li class="collection-item"><?= $this->words['tvirtis_wona'] . ' - ' . $this->tvirti['weight']; ?></li>
+    <li class="collection-item"><?= $this->words['mandzili'] . ' - ' . $this->tvirti['lenght_km']; ?>კმ.</li>
+</ul>

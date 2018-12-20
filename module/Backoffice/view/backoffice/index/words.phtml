@@ -1,0 +1,21 @@
+<table>
+	<tr>
+		<td>ID</td>
+		<td>Word</td>
+		<td>Define Word</td>
+		<td>Is Default</td>
+		<td>Lang Code</td>
+		<td>Icon</td>
+	</tr>
+<?php
+foreach ($words as $item) {
+    echo '<tr>';
+    echo '<td>' . $item->getID() . '</td>';
+    echo '<td>' . $item->getWord() . '</td>';
+    echo '<td>' . $item->getDefineWord() . '</td>';
+    echo '<td>' . $item->getLang()->getLangCode() . '</td>';
+    echo '<td>' . $item->getLang()->getIcon() . '</td>';
+    echo '</tr>';
+}
+?>
+</table>

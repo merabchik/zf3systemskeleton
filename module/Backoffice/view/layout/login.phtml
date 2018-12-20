@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <base href="/admin/" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Administrator login page</title>	
+        <link href="assets/images/favicon.ico" rel="apple-touch-icon" type="image/png" sizes="144x144">
+        <link href="assets/images/favicon.ico" rel="apple-touch-icon" type="image/png" sizes="114x114">
+        <link href="assets/images/favicon.ico" rel="apple-touch-icon" type="image/png" sizes="72x72">
+        <link href="assets/images/favicon.ico" rel="apple-touch-icon" type="image/png">
+        <link href="assets/images/favicon.ico" rel="icon" type="image/png">
+        <link href="assets/images/favicon.ico" rel="shortcut icon">
+
+        <!-- Global stylesheets -->
+        <link href="fonts/fonts.css" rel="stylesheet" type="text/css">
+        <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="css/animate.min.css" rel="stylesheet" type="text/css">
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="css/main.css" rel="stylesheet" type="text/css">
+        <link href="css/bootstrap-extended.css" rel="stylesheet" type="text/css">
+        <link href="css/plugins.css" rel="stylesheet" type="text/css">
+        <link href="css/color-system.css" rel="stylesheet" type="text/css">
+        <link href="css/media.css" rel="stylesheet" type="text/css">
+        <link type="text/css" rel="stylesheet" href="login_simple.html" id="style">
+        <link type="text/css" rel="stylesheet" href="login_simple.html" id="theme">
+        <!-- /global stylesheets -->
+        
+        <!-- Core JS files -->	
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>	
+        <script src="js/fancybox.min.js"></script>	
+        <script src="js/app.js"></script><script src="js/forms/uniform.min.js"></script>
+    <div class="page-container login-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main content -->
+            <div class="content-wrapper">
+                <!-- Content area -->
+                <div class="content">
+                    <!-- Simple login form -->
+                    <form action="http://followtechnique.com/themes/bird_v1/theme/index.htm">			
+                        <div class="panel panel-body login-form">							
+                            <div class="text-center mb-20">
+                                <div class="icon-object border-slate-300 text-slate-300"><i class="fa fa-user"></i></div>
+                                <h5 class="content-group">Login to your account 
+                                    <small class="display-block" id="response">Please put your credentials</small></h5>
+                            </div>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <input type="text" class="form-control" placeholder="Username" id="username" name="username" required="required">
+                                <div class="form-control-feedback">
+                                    <i class="fa fa-user text-muted"></i>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback has-feedback-left">
+                                <input type="password" class="form-control" placeholder="Password" id="password" name="password" required="required">
+                                <div class="form-control-feedback">
+                                    <i class="fa fa-lock text-muted"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" id="loginButton" class="btn btn-info btn-lg btn-labeled btn-labeled-right btn-block"><b><i class="fa fa-sign-in"></i></b> Sign in</button>								
+                            </div>						
+                        </div>
+                    </form>
+                    <!-- /simple login form -->
+                    <!-- Footer -->
+                    <div class="footer text-muted">&copy; 2016</div>
+                    <!-- /footer -->
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <script>
+        $(function () {
+            $(".styled, .multiselect-container input").uniform({
+                radioClass: 'choice'
+            });
+        });
+
+        $(document).ready(function () {
+            $("#loginButton").click(function (e) {
+                $("#loading").show();
+                $.post("http://cartravel.ge/administrator/user/login",
+                        {op: 'login', username: $("input[name=username]").val(), password: $("input[name=password]").val(), memory: $("input[name=rememberme]").val()},
+                function (data) {
+                    if (data.loginstatus == 1)
+                    {
+                        location.href = "http://cartravel.ge/administrator/";
+                    } else
+                    {
+                        $("#response").html("<span style='color:red'>Username or password is wrong.</span>");
+                    }
+                    $("#loading").hide();
+                }, "json");
+                //$(".loading").hide();
+            });
+        });
+
+    </script>
+</body>
+</html>

@@ -22,3 +22,14 @@ data/DoctrineORMModule/cache/
 # Legacy ZF1
 demos/
 extras/documentation
+
+config/autoload/global.php
+public/admin_template
+public/css
+public/fonts
+public/img
+public/js
+public/shared
+public/skin
+public/uploads
+public/vendor

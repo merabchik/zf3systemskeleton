@@ -1,0 +1,38 @@
+<!--breadcrumbs start-->
+<div id="breadcrumbs-wrapper" class="white lighten-3">
+    <!-- Search for small screen -->
+    <div class="header-search-wrapper white hide-on-large-only">
+        <i class="mdi-action-search active"></i>
+        <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="საძიებო სიტყვა">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 ">
+                <h4 class="header">ცხრილში მოცემული დამკვეთების მიერ განთავსებული ტვირთების ჩამონათვალი, დეტალური ინფორმაციის მისაღებად გთხოვთ იხილოთ დამატებითი ინფორმაცია.</h4>
+                <ul id="projects-collection" class="collection">
+                    <li class="collection-item avatar">
+                        <i class="mdi-file-folder circle light-blue"></i>
+                        <span class="collection-header">Projects</span>
+                        <p>Your Favorites</p>
+                        <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>
+                    </li>
+                    <?php foreach ($userRecs as $record): ?>
+                        <article class="col s12 m6 l4">
+                            <div class="card">
+                                <div class="card-content">
+                                    <ul class="collection">
+                                        <li class="collection-item">ID# <?= $record->getID(); ?></li>
+                                        <li class="collection-item"><?= $record->getFullName(); ?></li>
+                                    </ul>
+                                </div>
+                                <div class="card-action center-align">                      
+                                    <button class="waves-effect waves-light  btn"><a href="<?=$this->basePath()."/detail/".$record->getID();?>">read_more</a></button>
+                                </div>
+                            </div>
+                        </article>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
