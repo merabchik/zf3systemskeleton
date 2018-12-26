@@ -1,11 +1,12 @@
 <table>
 	<tr>
-		<td>ID</td>
-		<td>Lang Code</td>
-		<td>Icon</td>
-		<td>Is Default</td>
-		<td>Status</td>
-		<td>Position</td>
+		<th>ID</th>
+		<th>Lang Code</th>
+		<th>Icon</th>
+		<th>Is Default</th>
+		<th>Status</th>
+		<th>Position</th>
+		<th></th>
 	</tr>
 <?php
 foreach ($langs as $item) {
@@ -16,7 +17,24 @@ foreach ($langs as $item) {
     echo '<td>' . $item->getDefault() . '</td>';
     echo '<td>' . $item->getStatus() . '</td>';
     echo '<td>' . $item->getPos() . '</td>';
+    echo '<td><a href="'.$this->basePath().'/backoffice/words/' . $item->getID() . '"><button>Words</button></a></td>';
     echo '</tr>';
 }
 ?>
 </table>
+
+
+  <div class="ui main text container">
+    <h1 class="ui header">Semantic UI Fixed Template</h1>
+    <p>This is a basic fixed menu template using fixed size containers.</p>
+    <p>A text container is used for the main container, which is useful for single column layouts</p>
+    <img class="wireframe" src="assets/images/wireframe/media-paragraph.png">
+    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
+    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
+    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
+    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
+    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
+    <img class="wireframe" src="assets/images/wireframe/paragraph.png">
+  </div>
+
+  

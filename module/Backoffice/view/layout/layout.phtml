@@ -1,1 +1,26 @@
-Bids
+<?= $this->doctype() ?>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="msapplication-tap-highlight" content="no">
+        <title><?= $this->headTitle; ?></title>
+        <meta name="author" content="Merab Chikvaidze">
+        <base href="<?= $this->basePath(); ?>/" />
+        <link rel="stylesheet" type="text/css" href="<?= $this->basePath(); ?>/assets/Semantic-UI/semantic.min.css">
+        <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous"></script>
+        <script src="<?= $this->basePath(); ?>/assets/Semantic-UI/semantic.min.js"></script>
+    </head>    
+    <body>
+        <?php
+        echo $this->render('ablocks/header.phtml');
+        echo $this->content;
+        echo $this->render('ablocks/footer.phtml');
+        ?>        
+        <?= $this->inlineScript() ?>
+    </body>
+</html>
