@@ -14,30 +14,29 @@ use Zend\Router\Http\Segment;
 return [
     'router'       => [
         'routes' => [
-            'Backoffice' => [
-                'type'    => Literal::class,
-                'options' => [
-                    'route'    => '/backoffice',
+            'Backoffice rest' => [
+                'type'         => Literal::class,
+                'options'      => [
+                    'route'    => '/backoffice/rest',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
                     ],
                 ],
-            ],
-            'Actions'    => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/backoffice[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                /*'child_routes' => [
+                    'type'   => Segment::class,
+                    'option' => [
+                        'route'       => '[/:controller][/:action]',
+                        'constraints' => [
+                            'controller' => '[a-zA-Z][a-zA-Z0-9_-]',
+                        ]
                     ],
-                ],
+                ],*/
             ],
-            'Words'      => [
+            'Words'           => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/backoffice/words[/:id]',
+                    'route'    => '/backoffice/rest/getwords[/:id]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'words',
@@ -48,8 +47,7 @@ return [
     ],
     'controllers'  => [
         'factories' => [
-            Controller\IndexController::class =>
-            Controller\Factory\IndexControllerFactory::class,
+            Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
         ],
     ],
 //    'service_manager' => [
@@ -58,19 +56,11 @@ return [
     //        ],
     //    ],
     'view_manager' => [
-        'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
-        'template_map'             => [
-            'layout/layout'    => __DIR__ . '/../view/layout/layout.phtml',
-            //'bids/index/index' => __DIR__ . '/../view/bids/index/index.phtml',
-            'error/404'        => __DIR__ . '/../view/error/404.phtml',
-            'error/index'      => __DIR__ . '/../view/error/index.phtml',
-        ],
-        'template_path_stack'      => [
+        'template_path_stack' => [
             __DIR__ . '/../view',
+        ],
+        'strategies'          => [
+            'ViewJsonStrategy',
         ],
     ],
     'doctrine'     => [
