@@ -43,6 +43,16 @@ return [
                     ],
                 ],
             ],
+            'Langs'           => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/backoffice/rest/langs',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'langs',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers'  => [

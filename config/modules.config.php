@@ -29,6 +29,7 @@ return [
 	'ZfMetal\Commons',
 	'ZfMetal\Datagrid',
 	'ZfMetal\Generator',
+    'ZfrCors',
     'Application',
     'Backoffice'
 ];

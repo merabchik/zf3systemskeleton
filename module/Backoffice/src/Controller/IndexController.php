@@ -24,7 +24,7 @@ class IndexController extends AbstractActionController {
         $this->em = $entityManager;
     }
 
-    public function indexAction() {
+    public function langsAction() {
         $langs  = $this->em->getRepository('Backoffice\Entity\Langs')->findAll();
         $_langs = [];
         $_items = [];
