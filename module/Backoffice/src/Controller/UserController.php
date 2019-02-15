@@ -9,23 +9,77 @@
 namespace Backoffice\Controller;
 
 use Backoffice\Entity as Entity;
+use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter as AuthAdapter;
+use Zend\Math\Rand;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
-class IndexController extends AbstractActionController {
+class UserController extends AbstractActionController {
 
     /**
      * Entity manager.
      * @var Doctrine\ORM\EntityManager
      */
     private $em;
+    private $AuthAdapter;
 
     public function __construct($entityManager) {
-        $this->em = $entityManager;
-        header('Access-Control-Allow-Origin: *');
+        $this->em          = $entityManager;
+        $salt              = Rand::getBytes(32, true);
+        $this->AuthAdapter = new AuthAdapter(
+            $dbAdapter,
+            'users',
+            'email',
+            'password',
+            "MD5(CONCAT('staticSalt', ?, password_salt))"
+        );
     }
 
-    public function langsAction() {
+    private function auth($email, $password) {
+        $this->authAdapter->setIdentity($email)->setCredential($password);
+        $select = $this->authAdapter->getDbSelect();
+        $select->where('user_status_id = 1');
+        return $this->authAdapter->authenticate();
+    }
+
+    public function loginAction() {
+        $request = $this->getRequest();
+        if ($request->isGet()) {
+            $this->getResponse()->setStatusCode(404);
+        } elseif ($request->isPost()) {
+
+            $email    = $this->params()->fromPost('email', null);
+            $password = $this->params()->fromPost('password', null);
+            $result   = $this->auth($email, $password);
+            print_r($result);
+
+            if (!$result->isValid()) {
+                $messages = [];
+                foreach ($result->getMessages() as $message) {
+                    $messages[] = $message;
+                }
+                $this->auth->clearIdentity();
+                return new JsonModel([
+                    [
+                        "status" => "fail",
+                        "result" => [
+                            "messages" => $messages,
+                        ],
+                    ],
+                ]);
+            } elseif ($this->auth->hasIdentity()) {
+                return new JsonModel([
+                    [
+                        "status" => "ok",
+                        "result" => [
+                            "identity" => $result->getIdentity(),
+                        ],
+                    ],
+                ]);
+            }
+        }
+        //************************************
+
         $langs  = $this->em->getRepository('Backoffice\Entity\Langs')->findAll();
         $_langs = [];
         $_items = [];
@@ -79,34 +133,37 @@ class IndexController extends AbstractActionController {
         } elseif ($request->isPost()) {
 
             $post                = [];
-            $post["id"]          = $this->params()->fromPost('id', null);
             $post["lang_id"]     = $this->params()->fromPost('lang_id', null);
             $post["define_word"] = $this->params()->fromPost('define_word', null);
             $post["value"]       = $this->params()->fromPost('value', null);
-            $IsWordSet           = $this->IsWordSet($post["lang_id"], $post["define_word"]);
 
-            if ($post["lang_id"] > 0 && $post["define_word"] && $post["value"]) {
-                $word = new \Backoffice\Entity\Words();
-                $word->setLangID($post["lang_id"]);
-                $word->setWord($post["value"]);
-                $word->setDefineWord($post["define_word"]);
-                if (count($IsWordSet) > 0) {
-                    //Update record
-                    $word->setID($post["id"]);
-                    $this->em->merge($word);
-                } else {
-                    //Insert record
-                    $this->em->persist($word);
-                }
+            $IsWordSet = $this->IsWordSet($post["lang_id"], $post["define_word"]);
 
+            return new JsonModel([
+                [
+                    "status" => "ok",
+                    "result" => [
+                        "msg"       => "ტრანზაქციამ ჩაიარა წარმატებით",
+                        "IsWordSet" => $IsWordSet,
+                        "post"      => $post,
+                    ],
+                ],
+            ]);
+            exit;
+
+            if ($post["lang_id"] > 0 && isset($post["define_word"]) && isset($post["word"])) {
+                $word = new \Entity\Words();
+                $word->setLangID($lang_id);
+                $word->setWord($word);
+                $word->setDefineWord($define_word);
+                $this->em->persist($word);
                 if ($this->em->flush()) {
                     //$this->getResponse()->setStatusCode(200);
                     return new JsonModel([
                         [
                             "status" => "ok",
                             "result" => [
-                                "msg"    => "ტრანზაქციამ ჩაიარა წარმატებით",
-                                "result" => $post,
+                                "msg" => "ტრანზაქციამ ჩაიარა წარმატებით",
                             ],
                         ],
                     ]);
@@ -116,17 +173,9 @@ class IndexController extends AbstractActionController {
                         [
                             "status" => "fail",
                             "result" => null,
-                            "result" => $post,
                         ],
                     ]);
                 }
-            } else {
-                return new JsonModel([
-                    [
-                        "status" => "fail",
-                        "result" => null,
-                    ],
-                ]);
             }
         }
     }
@@ -171,22 +220,12 @@ class IndexController extends AbstractActionController {
         } elseif ($request->getMethod() == "DELETE") { // Delete record
 
         }
+
     }
 
-    private function IsWordSet($p_lang_id, $p_define_word) {
-        $result = $this->em->getRepository('Backoffice\Entity\Words')->findBy(["lang_id" => $p_lang_id, "define_word" => $p_define_word]);
-        return $result;
-    }
-
-    public function docAction() {
-        return new JsonModel([
-            [
-                "status" => "ok",
-                "result" => [
-                    "msg" => "test",
-                ],
-            ],
-        ]);
+    private function checkAuth() {
+        return $this->em->getRepository('Backoffice\Entity\Words')->findBy(
+            ["lang_id" => $p_lang_id, "define_word" => $p_define_word]);
     }
 
 }

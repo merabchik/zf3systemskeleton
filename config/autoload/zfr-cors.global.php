@@ -27,7 +27,7 @@ return [
           * Set the max age of the preflight request in seconds. A non-zero max age means
           * that the preflight will be cached during this amount of time
           */
-         // 'max_age' => 120,
+         'max_age' => 120,
 
          /**
           * Set the list of exposed headers. This is a whitelist that authorize the browser

@@ -36,14 +36,12 @@ class Words {
      */
     protected $lang_id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="\Backoffice\Entity\Langs")
-     * @ORM\JoinColumn(name="lang_id", referencedColumnName="id")
-     */
-    protected $lang;
-
     public function getID() {
         return $this->id;
+    }
+
+    public function setID($id) {
+        $this->id = $id;
     }
 
     public function getWord() {
