@@ -38,20 +38,20 @@ return [
             'detail' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/detail[/:id]',
+                    'route' => '/langs',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action' => 'detail',
+                        'action' => 'langs',
                     ],
                 ],
             ],            
             'apply' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/apply[/:id]',
+                    'route' => '/words[/:id]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action' => 'apply',
+                        'action' => 'words',
                     ],
                 ],
             ],

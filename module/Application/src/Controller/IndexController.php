@@ -18,9 +18,9 @@ use Application\Entity as Entity;
 class IndexController extends AbstractActionController {
 
     /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
-     */
+    * Entity manager.
+    * @var Doctrine\ORM\EntityManager
+    */
     private $entityManager;
 
     public function __construct($entityManager) {
@@ -28,32 +28,52 @@ class IndexController extends AbstractActionController {
     }
 
     public function indexAction() {
+        $usersEntity = $this->entityManager->getRepository(Entity\Users::class);
+        $userRecs = $usersEntity->findAll();
+        $result = [];
+        foreach($userRecs as $item){
+            $userRec = [];
+            $userRec["id"] = $item->getId();
+            $userRec["user_status_id"] = $item->getUserStatusId();
+            $userRec["user_gender_id"] = $item->getUserGenderId();
+            $userRec["full_name"] = $item->getFullName();
+            $userRec["phone"] = $item->getPhone();
+            $userRec["email"] = $item->getEmail();
+            $userRec["create_date"] = $item->getCreateDate();
+            $userRec["modify_date"] = $item->getModifyDate();
+            $userRec["regipaddr"] = $item->getRegipaddr();
+            $result[] = $userRec;
+            unset($userRec);
+        }
 
-        $userEntity = $this->entityManager->getRepository(Entity\User::class);
-        $userRecs = $userEntity->findAll();
-
-        return new ViewModel(["userRecs" => $userRecs]);
+        return new JsonModel([
+            'status' => true,
+            'result' => $result
+        ]);
     }
 
     public function detailAction() {
         $id = $this->params()->fromRoute("id");
-        $userEntity = $this->entityManager->getRepository(Entity\User::class);
-        $userRec = $userEntity->find($id);
+        $userEntity = $this->entityManager->getRepository(Entity\Users::class);
+        $result = $userEntity->find($id);
 
-        return new ViewModel(["userRec" => $userRec]);
-    }
+        $userRec = [];
+        $userRec["id"] = $result->getId();
+        $userRec["user_status_id"] = $result->getUserStatusId();
+        $userRec["user_gender_id"] = $result->getUserGenderId();
+        $userRec["full_name"] = $result->getFullName();
+        $userRec["phone"] = $result->getPhone();
+        $userRec["email"] = $result->getEmail();
+        $userRec["create_date"] = $result->getCreateDate();
+        $userRec["modify_date"] = $result->getModifyDate();
+        $userRec["regipaddr"] = $result->getRegipaddr();
 
-    public function applyAction() {
-        $id = $this->params()->fromRoute("id");
+
         return new JsonModel([
-            'status' => 'SUCCESS',
-            'message' => 'Here is your data',
-            'id'=>$id,
-            'data' => [
-                'full_name' => 'John Doe',
-                'address' => '51 Middle st.'
-            ]
+            'status' => true,
+            'result' => $userRec
         ]);
+        //return new ViewModel(["userRec" => $userRec]);
     }
 
     public function sendapplyAction() {
@@ -81,6 +101,51 @@ class IndexController extends AbstractActionController {
                 'full_name' => 'John Doe',
                 'address' => '51 Middle st.'
             ]
+        ]);
+    }
+
+
+    public function langsAction() {
+        $Entity = $this->entityManager->getRepository(Entity\Langs::class);
+        $langsEntity = $Entity->findAll();
+        $result = [];
+        foreach($langsEntity as $item){
+            $langs = [];
+            $langs["id"] = $item->getId();
+            $langs["lang_code"] = $item->getLangCode();
+            $langs["icon"] = $item->getIcon();
+            $langs["default"] = $item->getDefault();
+            $langs["status"] = $item->getStatus();
+            $langs["pos"] = $item->getPos();
+            $result[] = $langs;
+            unset($langs);
+        }
+
+        return new JsonModel([
+            'status' => true,
+            'result' => $result
+        ]);
+    }
+
+    public function wordsAction() {
+        $id = $this->params()->fromRoute("id");
+        $Entity = $this->entityManager->getRepository(Entity\Words::class);
+        $LangswordsEntity = $Entity->find(["lang_id" => $id]);
+        $result = [];
+        foreach($LangswordsEntity as $item){
+            $words = [];
+            $words["id"] = $item->getId();
+            $words["lang_code"] = $item->getLangsWordsGroupId();
+            $words["icon"] = $item->getWord();
+            $words["default"] = $item->getDefineWord();
+            $words["status"] = $item->getLangId();
+            $result[] = $words;
+            unset($words);
+        }
+
+        return new JsonModel([
+            'status' => true,
+            'result' => $result
         ]);
     }
 
