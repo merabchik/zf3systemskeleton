@@ -129,7 +129,7 @@ class IndexController extends AbstractActionController {
 
     public function wordsAction() {
         $id = $this->params()->fromRoute("id");
-        $Entity = $this->entityManager->getRepository(Entity\Words::class);
+        $Entity = $this->entityManager->getRepository(Entity\LangsWords::class);
         $LangswordsEntity = $Entity->find(["lang_id" => $id]);
         $result = [];
         foreach($LangswordsEntity as $item){

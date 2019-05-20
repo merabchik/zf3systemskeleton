@@ -5,97 +5,229 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * This class represents a registered user.
- * @ORM\Entity()
- * @ORM\Table(name="langs")
+ * Langs
+ *
+ * @ORM\Table(name="langs", indexes={@ORM\Index(name="id", columns={"id", "status"})})
+ * @ORM\Entity
  */
-class Langs {
-
+class Langs
+{
     /**
-     * @ORM\Id
-     * @ORM\Column(name="id")
-     * @ORM\GeneratedValue
-     */
-    protected $id;
-
-    /**
-     * @ORM\Column(name="lang_code")  
-     */
-    protected $lang_code;
-
-    /**
+     * @var int
      *
-     * @ORM\Column(name="icon") 
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $icon;
+    private $id;
 
     /**
-     * @ORM\Column(name="default")  
+     * @var string
+     *
+     * @ORM\Column(name="lang_code", type="string", length=50, nullable=false)
      */
-    protected $default;
+    private $langCode;
 
     /**
-     * @ORM\Column(name="status")  
+     * @var string
+     *
+     * @ORM\Column(name="icon", type="string", length=50, nullable=false)
      */
-    protected $status;
-
-	/**
-     * @ORM\Column(name="currency")  
-     */
-    protected $currency;
+    private $icon;
 
     /**
-     * @ORM\Column(name="pos")  
+     * @var int|null
+     *
+     * @ORM\Column(name="default", type="integer", nullable=true)
      */
-    protected $pos;
+    private $default;
 
-    
-    public function getId() {
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="status", type="integer", nullable=false)
+     */
+    private $status = '0';
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="currency", type="string", length=50, nullable=true)
+     */
+    private $currency;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="pos", type="integer", nullable=true)
+     */
+    private $pos = '0';
+
+
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
         return $this->id;
     }
 
+    /**
+     * Set id.
+     *
+     * @param string $id
+     *
+     * @return Langs
+     */
     public function setId($id) {
         $this->id = $id;
+        return $this;
     }
 
-    public function getLangCode() {
-        return $this->lang_code;
+    /**
+     * Set langCode.
+     *
+     * @param string $langCode
+     *
+     * @return Langs
+     */
+    public function setLangCode($langCode)
+    {
+        $this->langCode = $langCode;
+
+        return $this;
     }
 
-    public function setLangCode($lang_code) {
-        $this->lang_code = $lang_code;
+    /**
+     * Get langCode.
+     *
+     * @return string
+     */
+    public function getLangCode()
+    {
+        return $this->langCode;
     }
 
-    public function getIcon() {
+    /**
+     * Set icon.
+     *
+     * @param string $icon
+     *
+     * @return Langs
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Get icon.
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
         return $this->icon;
     }
 
-    public function setIcon($icon) {
-        $this->icon = $icon;
+    /**
+     * Set default.
+     *
+     * @param int|null $default
+     *
+     * @return Langs
+     */
+    public function setDefault($default = null)
+    {
+        $this->default = $default;
+
+        return $this;
     }
 
-    public function getDefault() {
+    /**
+     * Get default.
+     *
+     * @return int|null
+     */
+    public function getDefault()
+    {
         return $this->default;
     }
 
-    public function setDefault($default) {
-        $this->default = $default;
+    /**
+     * Set status.
+     *
+     * @param int $status
+     *
+     * @return Langs
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
     }
 
-    public function getStatus() {
+    /**
+     * Get status.
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
         return $this->status;
     }
 
-    public function setStatus($status) {
-        $this->status = $status;
+    /**
+     * Set currency.
+     *
+     * @param string|null $currency
+     *
+     * @return Langs
+     */
+    public function setCurrency($currency = null)
+    {
+        $this->currency = $currency;
+
+        return $this;
     }
 
-    public function getPos() {
+    /**
+     * Get currency.
+     *
+     * @return string|null
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * Set pos.
+     *
+     * @param int|null $pos
+     *
+     * @return Langs
+     */
+    public function setPos($pos = null)
+    {
+        $this->pos = $pos;
+
+        return $this;
+    }
+
+    /**
+     * Get pos.
+     *
+     * @return int|null
+     */
+    public function getPos()
+    {
         return $this->pos;
     }
-
-    public function setPos($pos) {
-        $this->pos = $pos;
-    }
-
 }

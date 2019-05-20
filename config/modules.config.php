@@ -11,29 +11,10 @@
  * This should be an array of module namespaces used in the application.
  */
 return [
-    'Zend\Paginator',
-    'Zend\InputFilter',
-    'Zend\Filter',
-    'Zend\Hydrator',
-    'Zend\Session',
-	'Zend\Cache',	
-    'Zend\Db',
-    'Zend\Log',
     'DoctrineModule',
     'DoctrineORMModule',
-    'Zend\Form',
     'Zend\Router',
     'Zend\Mail',
-    'Zend\Mvc\I18n',
-    'Zend\I18n',
-    'Zend\Validator',
-    'Zend\Mvc\Plugin\FilePrg',
-    'Zend\Mvc\Plugin\FlashMessenger',
-    'SwissEngine\Tools\Doctrine\Extension',
-	'ZfMetal\Commons',
-	'ZfMetal\Datagrid',
-	'ZfMetal\Generator',
-    'ZfrCors',
     'Application',
     'Backoffice'
 ];

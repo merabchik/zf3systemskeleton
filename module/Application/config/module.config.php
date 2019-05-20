@@ -15,16 +15,6 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 return [
     'router' => [
         'routes' => [
-            'home' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route' => '/',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'index',
-                    ],
-                ],
-            ],
             'application' => [
                 'type' => Segment::class,
                 'options' => [
@@ -35,23 +25,13 @@ return [
                     ],
                 ],
             ],
-            'detail' => [
+            'langs' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/langs',
+                    'route' => '/langs[/:action][/:id]',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'langs',
-                    ],
-                ],
-            ],            
-            'apply' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '/words[/:id]',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'words',
+                        'controller' => Controller\LangsController::class,
+                        'action' => 'index',
                     ],
                 ],
             ],
@@ -59,8 +39,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => 
-                            Controller\Factory\IndexControllerFactory::class,
+            Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
+            Controller\LangsController::class => Controller\Factory\LangsControllerFactory::class,
         ],
     ],
     'view_manager' => [

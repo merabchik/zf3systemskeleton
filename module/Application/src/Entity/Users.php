@@ -5,144 +5,313 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * This class represents a registered user.
- * @ORM\Entity()
- * @ORM\Table(name="users")
+ * Users
+ *
+ * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="user_status_id", columns={"user_status_id"})})
+ * @ORM\Entity
  */
-class Users {
-
+class Users
+{
     /**
-     * @ORM\Id
-     * @ORM\Column(name="id")
-     * @ORM\GeneratedValue
-     */
-    protected $id;
-
-    /**
-     * @ORM\Column(name="user_status_id")  
-     */
-    protected $user_status_id;
-
-    /**
+     * @var int
      *
-     * @ORM\Column(name="user_gender_id") 
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $user_gender_id;
+    private $id;
 
     /**
-     * @ORM\Column(name="full_name")  
+     * @var int|null
+     *
+     * @ORM\Column(name="user_gender_id", type="integer", nullable=true, options={"default"="1","comment"="1=>კაცი, 2=>ქალი"})
      */
-    protected $full_name;
+    private $userGenderId = '1';
 
     /**
-     * @ORM\Column(name="phone")  
+     * @var string|null
+     *
+     * @ORM\Column(name="full_name", type="string", length=255, nullable=true)
      */
-    protected $phone;
+    private $fullName;
 
     /**
-     * @ORM\Column(name="email")  
+     * @var int|null
+     *
+     * @ORM\Column(name="phone", type="integer", nullable=true)
      */
-    protected $email;
+    private $phone;
 
     /**
-     * @ORM\Column(name="password")  
+     * @var string|null
+     *
+     * @ORM\Column(name="email", type="string", length=100, nullable=true)
      */
-    protected $password;
+    private $email;
 
     /**
-     * @ORM\Column(name="create_date")
+     * @var string|null
+     *
+     * @ORM\Column(name="password", type="string", length=100, nullable=true)
      */
-    protected $create_date;
+    private $password;
 
     /**
-     * @ORM\Column(name="modify_date")
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="create_date", type="datetime", nullable=true)
      */
-    protected $modify_date;
+    private $createDate;
 
     /**
-     * @ORM\Column(name="regipaddr")
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="modify_date", type="datetime", nullable=true)
      */
-    protected $regipaddr;
+    private $modifyDate;
 
-    
-    public function getId() {
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="regipaddr", type="string", length=50, nullable=true)
+     */
+    private $regipaddr;
+
+    /**
+     * @var \Application\Entity\UserStatuses
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\UserStatuses")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_status_id", referencedColumnName="id")
+     * })
+     */
+    private $userStatus;
+
+
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($id) {
-        $this->id = $id;
+    /**
+     * Set userGenderId.
+     *
+     * @param int|null $userGenderId
+     *
+     * @return Users
+     */
+    public function setUserGenderId($userGenderId = null)
+    {
+        $this->userGenderId = $userGenderId;
+
+        return $this;
     }
 
-    public function getUserStatusId() {
-        return $this->user_status_id;
+    /**
+     * Get userGenderId.
+     *
+     * @return int|null
+     */
+    public function getUserGenderId()
+    {
+        return $this->userGenderId;
     }
 
-    public function setUserStatusId($user_status_id) {
-        $this->user_status_id = $user_status_id;
+    /**
+     * Set fullName.
+     *
+     * @param string|null $fullName
+     *
+     * @return Users
+     */
+    public function setFullName($fullName = null)
+    {
+        $this->fullName = $fullName;
+
+        return $this;
     }
 
-    public function getUserGenderId() {
-        return $this->user_gender_id;
+    /**
+     * Get fullName.
+     *
+     * @return string|null
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
     }
 
-    public function setUserGenderId($user_gender_id) {
-        $this->user_gender_id = $user_gender_id;
+    /**
+     * Set phone.
+     *
+     * @param int|null $phone
+     *
+     * @return Users
+     */
+    public function setPhone($phone = null)
+    {
+        $this->phone = $phone;
+
+        return $this;
     }
 
-    public function getFullName() {
-        return $this->full_name;
-    }
-
-    public function setFullName($full_name) {
-        $this->full_name = $full_name;
-    }
-
-    public function getPhone() {
+    /**
+     * Get phone.
+     *
+     * @return int|null
+     */
+    public function getPhone()
+    {
         return $this->phone;
     }
 
-    public function setPhone($phone) {
-        $this->phone = $phone;
+    /**
+     * Set email.
+     *
+     * @param string|null $email
+     *
+     * @return Users
+     */
+    public function setEmail($email = null)
+    {
+        $this->email = $email;
+
+        return $this;
     }
 
-    public function getEmail() {
+    /**
+     * Get email.
+     *
+     * @return string|null
+     */
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function setEmail($email) {
-        $this->email = $email;
+    /**
+     * Set password.
+     *
+     * @param string|null $password
+     *
+     * @return Users
+     */
+    public function setPassword($password = null)
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
-    public function getPassword() {
+    /**
+     * Get password.
+     *
+     * @return string|null
+     */
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function setPassword($password) {
-        $this->password = $password;
+    /**
+     * Set createDate.
+     *
+     * @param \DateTime|null $createDate
+     *
+     * @return Users
+     */
+    public function setCreateDate($createDate = null)
+    {
+        $this->createDate = $createDate;
+
+        return $this;
     }
 
-    public function getCreateDate() {
-        return $this->create_date;
+    /**
+     * Get createDate.
+     *
+     * @return \DateTime|null
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
     }
 
-    public function setCreateDate($create_date) {
-        $this->create_date = $create_date;
-    }    
+    /**
+     * Set modifyDate.
+     *
+     * @param \DateTime|null $modifyDate
+     *
+     * @return Users
+     */
+    public function setModifyDate($modifyDate = null)
+    {
+        $this->modifyDate = $modifyDate;
 
-    public function getModifyDate() {
-        return $this->modify_date;
+        return $this;
     }
 
-    public function setModifyDates($modify_date) {
-        $this->modify_date = $modify_date;
+    /**
+     * Get modifyDate.
+     *
+     * @return \DateTime|null
+     */
+    public function getModifyDate()
+    {
+        return $this->modifyDate;
     }
 
-    public function getRegipaddr() {
+    /**
+     * Set regipaddr.
+     *
+     * @param string|null $regipaddr
+     *
+     * @return Users
+     */
+    public function setRegipaddr($regipaddr = null)
+    {
+        $this->regipaddr = $regipaddr;
+
+        return $this;
+    }
+
+    /**
+     * Get regipaddr.
+     *
+     * @return string|null
+     */
+    public function getRegipaddr()
+    {
         return $this->regipaddr;
     }
 
-    public function setRegipaddr($regipaddr) {
-        $this->regipaddr = $regipaddr;
+    /**
+     * Set userStatus.
+     *
+     * @param \Application\Entity\UserStatuses|null $userStatus
+     *
+     * @return Users
+     */
+    public function setUserStatus(\Application\Entity\UserStatuses $userStatus = null)
+    {
+        $this->userStatus = $userStatus;
+
+        return $this;
     }
 
+    /**
+     * Get userStatus.
+     *
+     * @return \Application\Entity\UserStatuses|null
+     */
+    public function getUserStatus()
+    {
+        return $this->userStatus;
+    }
 }
