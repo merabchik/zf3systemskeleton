@@ -21,35 +21,54 @@ class LangsController extends AbstractActionController {
     }
 
     public function setwordAction() {
-        $LangsWordsEntity = $this->entityManager->getRepository(Entity\LangsWords::class);
-        $loadid = $this->_getParam("loadid");
-        $bid_content = $this->_getParam("bid_content");
+        
         if ($this->getRequest()->isPost()) {
             $post = $this->params()->fromPost();
-            $lang_id = $post->lang_id;
-            if (isset($post) && isset($post)) {
-                $LangsWordsEntity->setWord($loadid);
-                $LangsWordsEntity->setDefineWord(1);
-                $langs = new Entity\Langs();
-                $langs->setId($lang_id);
-                $LangsWordsEntity->setLang($langs);
-                $bidsEntity->setAddDate(date("Y-m-d H:i:s"));
-                $bidsEntity->setIpAddr($_SERVER["REMOTE_ADDR"]);
-                $bidsEntity->flush();
-                $this->flashMessenger()->addSuccessMessage('<p class="green">Your bid has sended.</p>');
-                return $this->redirect()->toRoute('roles', ['action'=>'index']);                 
+            $lang_id = $post["lang_id"];
+            $word = $post["word"];
+            $DefineWord = $post["define_word"];
+            if (isset($post) && isset($lang_id)) {
+
+                /****if word record is exists******/
+                $LangsWordsEntity = $this->entityManager->getRepository(Entity\LangsWords::class);
+                $LangsWordsRecord = $LangsWordsEntity->findOneBy(["lang_id" => $lang_id, "defineWord" => $DefineWord]);
+                if($LangsWordsRecord !== null){
+                    $wordId = $LangsWordsRecord->getId();
+                }
+
+                $LangsWords = new Entity\LangsWords();
+                if($LangsWordsRecord !== null){
+                    $LangsWords->setId($wordId);
+                }
+                $LangsWords->setWord($word);
+                $LangsWords->setDefineWord($DefineWord);
+                $LangsWords->setLangId($lang_id);
+                if($LangsWordsRecord !== null){
+                    $this->entityManager->merge($LangsWords);
+                }else{
+                    $this->entityManager->persist($LangsWords);
+                }
+                $this->entityManager->flush();
+                $status = true;
+                $message = 'ტრანზაქციამ ჩაიარა წარმატებით';
             } else {
-                $this->flashMessenger()->addSuccessMessage('<p class="red">Invalid params.</p>');
+                $status = false;
+                $message = 'ტრანზაქციის დამუშავების დროს დაფიქსირდა შეცდომა';
             }
+            $this->getResponse()->setStatusCode(200);
+            $this->getResponse()->getHeaders()->addHeaderLine("Access-Control-Allow-Origin: *");
+            return new JsonModel([
+                'status' => $status,
+                'message' => $message
+            ]);
+        }else{
+            $this->getResponse()->setStatusCode(405);
+            $this->getResponse()->getHeaders()->addHeaderLine("Access-Control-Allow-Origin: *");
+            return new JsonModel([
+                'status' => false,
+                'message' => "Method Not Allowed"
+            ]);            
         }
-        return new JsonModel([
-            'status' => 'SUCCESS',
-            'message' => 'Here is your data',
-            'data' => [
-                'full_name' => 'John Doe',
-                'address' => '51 Middle st.'
-            ]
-        ]);
     }
 
 

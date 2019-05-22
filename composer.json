@@ -37,7 +37,8 @@
         "zendframework/zend-code": "^3.3",
         "zendframework/zend-servicemanager": "^3.4",
         "zfr/zfr-cors": "1.*",
-        "doctrine/doctrine-bundle": "^1.11"
+        "doctrine/doctrine-bundle": "^1.11",
+        "zendframework/zend-test": "^3.2"
     },
     "autoload": {
         "psr-4": {

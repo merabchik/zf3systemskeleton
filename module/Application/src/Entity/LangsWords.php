@@ -42,15 +42,22 @@ class LangsWords
      */
     private $defineWord;
 
-    /**
+    /*
      * @var \Application\Entity\Langs
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Langs")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="lang_id", referencedColumnName="id")
      * })
+     
+    private $lang;*/
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="lang_id", type="integer", nullable=false, options={"default"="1"})
      */
-    private $lang;
+    private $lang_id;
 
 
 
@@ -59,9 +66,13 @@ class LangsWords
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -71,10 +82,8 @@ class LangsWords
      *
      * @return LangsWords
      */
-    public function setLangsWordsGroupId($langsWordsGroupId = null)
-    {
+    public function setLangsWordsGroupId($langsWordsGroupId = null) {
         $this->langsWordsGroupId = $langsWordsGroupId;
-
         return $this;
     }
 
@@ -83,8 +92,7 @@ class LangsWords
      *
      * @return int|null
      */
-    public function getLangsWordsGroupId()
-    {
+    public function getLangsWordsGroupId() {
         return $this->langsWordsGroupId;
     }
 
@@ -92,13 +100,10 @@ class LangsWords
      * Set word.
      *
      * @param string|null $word
-     *
      * @return LangsWords
      */
-    public function setWord($word = null)
-    {
+    public function setWord($word = null) {
         $this->word = $word;
-
         return $this;
     }
 
@@ -107,8 +112,7 @@ class LangsWords
      *
      * @return string|null
      */
-    public function getWord()
-    {
+    public function getWord() {
         return $this->word;
     }
 
@@ -119,10 +123,8 @@ class LangsWords
      *
      * @return LangsWords
      */
-    public function setDefineWord($defineWord = null)
-    {
+    public function setDefineWord($defineWord = null) {
         $this->defineWord = $defineWord;
-
         return $this;
     }
 
@@ -131,32 +133,47 @@ class LangsWords
      *
      * @return string|null
      */
-    public function getDefineWord()
-    {
+    public function getDefineWord() {
         return $this->defineWord;
     }
 
     /**
-     * Set lang.
+     * Set lang_id.
      *
-     * @param \Application\Entity\Langs|null $lang
-     *
+     * @param string|null $lang_id
      * @return LangsWords
      */
-    public function setLang(\Application\Entity\Langs $lang = null)
-    {
-        $this->lang = $lang;
-
+    public function setLangId($LangId) {
+        $this->lang_id = $LangId;
         return $this;
     }
 
     /**
+     * Get lang_id.
+     *
+     * @return string|null
+     */
+    public function getLangId() {
+        return $this->lang_id;
+    }
+
+    /*
+     * Set lang.
+     *
+     * @param \Application\Entity\Langs|null $lang
+     * @return LangsWords
+     
+    public function setLang(\Application\Entity\Langs $lang = null) {
+        $this->lang = $lang;
+        return $this;
+    }
+
+    
      * Get lang.
      *
      * @return \Application\Entity\Langs|null
-     */
-    public function getLang()
-    {
+    
+    public function getLang() {
         return $this->lang;
-    }
+    } */
 }
