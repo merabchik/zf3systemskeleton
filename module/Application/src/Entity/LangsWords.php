@@ -42,15 +42,15 @@ class LangsWords
      */
     private $defineWord;
 
-    /*
+    /**
      * @var \Application\Entity\Langs
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Langs")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="lang_id", referencedColumnName="id")
      * })
-     
-    private $lang;*/
+     */
+    private $lang;
 
     /**
      * @var int
@@ -157,23 +157,23 @@ class LangsWords
         return $this->lang_id;
     }
 
-    /*
+    /**
      * Set lang.
      *
      * @param \Application\Entity\Langs|null $lang
      * @return LangsWords
-     
+     */
     public function setLang(\Application\Entity\Langs $lang = null) {
         $this->lang = $lang;
         return $this;
     }
 
-    
+    /**
      * Get lang.
      *
      * @return \Application\Entity\Langs|null
-    
+     */
     public function getLang() {
         return $this->lang;
-    } */
+    }
 }
