@@ -41,6 +41,8 @@ return [
         'factories' => [
             Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
             Controller\LangsController::class => Controller\Factory\LangsControllerFactory::class,
+            Controller\EmailController::class => Controller\Factory\EmailControllerFactory::class,
+            Controller\NotificationsController::class => Controller\Factory\NotificationsControllerFactory::class
         ],
     ],
     'view_manager' => [

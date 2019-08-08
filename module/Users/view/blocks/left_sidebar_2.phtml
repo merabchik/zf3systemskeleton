@@ -1,0 +1,30 @@
+<!-- START LEFT SIDEBAR NAV-->
+<aside id="left-sidebar-nav">
+    <ul id="slide-out" class="side-nav fixed leftside-navigation">
+        <li class="user-details cyan darken-2">
+            <div class="row">
+                <div class="col col s4 m4 l4">
+                    <img src="<?= URL; ?>public/uploads/companylogo/<?= $this->user["id"]; ?>_avatar.jpeg" alt="" class=" responsive-img valign profile-image" />
+                </div>
+                <div class="col col s8 m8 l8">
+                    <ul id="profile-dropdown" class="dropdown-content">
+                        <li><a href="<?= URL; ?>public/user/profile/"><i class="mdi-action-face-unlock"></i><?= $this->words["profile"]; ?></a></li>
+                        <li><a href="#"><i class="mdi-action-settings"></i> <?= $this->words["settings"]; ?></a></li>
+                        <li><a href="#"><i class="mdi-communication-live-help"></i> <?= $this->words["help"]; ?></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="mdi-action-lock-outline"></i> Lock</a></li>
+                        <li><a href="<?= URL; ?>public/user/logout"><i class="mdi-hardware-keyboard-tab"></i> Logout</a></li>
+                    </ul>
+                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown"><?= $this->user["fullname"]; ?><i class="mdi-navigation-arrow-drop-down right"></i></a>
+                    <p class="user-roal">Administrator</p>
+                </div>
+            </div>
+        </li>
+        <li class="bold active"><a href="<?= URL; ?>" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> <?= $this->words["_homepage"]; ?></a></li>
+        <li class="bold"><a href="<?= URL; ?>public/bids/" class="waves-effect waves-cyan"><i class="mdi-communication-email"></i> Mailbox <span class="new badge"><?php echo count($this->messages); ?></span></a></li>
+        <li class="bold"><a href="<?= URL; ?>public/transporters/" class="waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> გადამზიდები</a> </li>
+        <li class="bold"><a href="<?= URL; ?>public/filter/" class="waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> ფილტრი</a></li>
+        <li class="bold"><a href="<?= URL; ?>public/user/myads/" class="waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> ჩემი განცხადებები</a></li>
+    </ul>
+</aside>
+<!-- END LEFT SIDEBAR NAV-->
